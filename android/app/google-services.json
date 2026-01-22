@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "432784320511",
+    "project_id": "eduera-5573f",
+    "storage_bucket": "eduera-5573f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:432784320511:android:87ec1a73d6aee2392c69ca",
+        "android_client_info": {
+          "package_name": "com.example.eduera_student"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "432784320511-83ejr8fuovt4g2pqb17tjiutgdcblt78.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDY6WcvpiMYRr1rFvhqyqEVSvyYrxWkntQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "432784320511-83ejr8fuovt4g2pqb17tjiutgdcblt78.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "432784320511-sif71h6afif5cfbgpfv57epqvgh1tbgs.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.edueraStudent"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
