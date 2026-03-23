@@ -27,14 +27,14 @@ class StudentNotificationService {
 
     // Background tap
     FirebaseMessaging.onMessage.listen((message) {
-      print("FOREGROUND: ${message.notification?.title}");
-      print("DATA: ${message.data}");
+     // print("FOREGROUND: ${message.notification?.title}");
+      //print("DATA: ${message.data}");
     });
     
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       final courseId = message.data["courseId"];
       if (courseId != null) {
-        print("Tapped notification → Course: $courseId");
+      //  print("Tapped notification → Course: $courseId");
         // Navigation handled in main.dart via callback
       }
     });
@@ -46,7 +46,7 @@ class StudentNotificationService {
       await FirebaseDatabase.instance.ref("students/$studentId").update({
         "fcmToken": token,
       });
-      print("Token saved: $token");
+      //print("Token saved: $token");
     }
   }
 

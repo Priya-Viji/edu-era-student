@@ -86,11 +86,9 @@ class EnrollRepositoryImpl implements EnrollRepository {
         final ratings = reviewsSnap.docs
             .map((d) => (d.data()['rating'] as num).toDouble())
             .toList();
-        print('ratings: $ratings');
 
         final total = ratings.fold<double>(0.0, (sum, r) => sum + r);
         avgRating = total / ratings.length;
-        print('average: $avgRating');
       }
 
       // 3. Override rating in course model

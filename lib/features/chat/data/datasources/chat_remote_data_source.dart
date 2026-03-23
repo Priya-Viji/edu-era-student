@@ -56,21 +56,23 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
   }
 
   @override
+ @override
   Stream<QuerySnapshot> watchMessages(String chatId) {
     return firestore
         .collection('chats')
         .doc(chatId)
         .collection('messages')
-        .orderBy('createdAt')
+        .orderBy('sentAt')
         .snapshots();
   }
+
 
   @override
   Future<void> sendMessage({
     required String chatId,
     required String senderId,
     required String receiverId,
-    required String message, 
+    required String message,
   }) async {
     final messageRef = firestore
         .collection('chats')
@@ -81,14 +83,17 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
     await messageRef.set({
       'senderId': senderId,
       'receiverId': receiverId,
-      'message': message, 
-      'sentAt': FieldValue.serverTimestamp(),
-      'createdAt': DateTime.now(),
+      'message': message,
+      'sentAt': FieldValue.serverTimestamp(), // ✅ only one timestamp
       'isRead': false,
+      'isDelivered': false,
+      'edited': false,
+      'deletedForEveryone': false,
+      'deletedFor': [],
     });
 
     await firestore.collection('chats').doc(chatId).update({
-      'lastMessage': message, 
+      'lastMessage': message,
       'lastMessageAt': FieldValue.serverTimestamp(),
     });
   }

@@ -45,8 +45,7 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
     context.read<CourseBloc>().add(LoadCourseDetailEvent(widget.courseId));
     final userId = FirebaseAuth.instance.currentUser!.uid;
     context.read<BookmarkBloc>().add(LoadAllBookmarks(userId: userId));
-  
-  _checkEnrollment(userId, widget.courseId).then((enrolled) {
+    _checkEnrollment(userId, widget.courseId).then((enrolled) {
       setState(() {
         isEnrolled = enrolled;
       });
@@ -155,7 +154,6 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
     }
   }
 }
-
 
 Future<bool> _checkEnrollment(String userId, String courseId) async {
   final snapshot = await FirebaseFirestore.instance

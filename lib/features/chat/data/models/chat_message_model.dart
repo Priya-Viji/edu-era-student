@@ -7,12 +7,12 @@ class ChatMessageModel {
   final String senderId;
   final String receiverId;
   final String message;
-  final DateTime sentAt;
+  final DateTime? sentAt; // nullable until Firestore fills server timestamp
   final bool edited;
   final bool deletedForEveryone;
   final bool isRead;
   final bool isDelivered;
-  final List<String> deletedFor; // 👈 NEW
+  final List<String> deletedFor;
 
   ChatMessageModel({
     required this.id,
@@ -29,34 +29,10 @@ class ChatMessageModel {
   });
 
   factory ChatMessageModel.fromDoc(DocumentSnapshot doc, String chatId) {
-    final raw = doc.data();
-    if (raw == null) {
-      return ChatMessageModel(
-        id: doc.id,
-        chatId: chatId,
-        senderId: '',
-        receiverId: '',
-        message: '',
-        sentAt: DateTime.now(),
-        edited: false,
-        deletedForEveryone: false,
-        isRead: false,
-        isDelivered: false,
-        deletedFor: const [],
-      );
-    }
-
-    final data = raw as Map<String, dynamic>;
+    final data = doc.data() as Map<String, dynamic>? ?? {};
 
     final ts = data['sentAt'];
-    final created = data['createdAt'];
-
-    DateTime rawSentAt = ts is Timestamp
-        ? ts.toDate().toLocal()
-        : created is Timestamp
-        ? created.toDate().toLocal()
-        : DateTime.now();
-    rawSentAt = _fixOldTimestamp(rawSentAt);
+    DateTime? rawSentAt = ts is Timestamp ? ts.toDate().toLocal() : null;
 
     return ChatMessageModel(
       id: doc.id,
@@ -69,7 +45,7 @@ class ChatMessageModel {
       deletedForEveryone: data['deletedForEveryone'] ?? false,
       isDelivered: data['isDelivered'] ?? false,
       isRead: data['isRead'] ?? false,
-      deletedFor: List<String>.from(data['deletedFor'] ?? const []), // 👈 NEW
+      deletedFor: List<String>.from(data['deletedFor'] ?? const []),
     );
   }
 
@@ -78,7 +54,9 @@ class ChatMessageModel {
       'senderId': senderId,
       'receiverId': receiverId,
       'message': message,
-      'sentAt': Timestamp.fromDate(sentAt),
+      'sentAt': sentAt != null
+          ? Timestamp.fromDate(sentAt!)
+          : FieldValue.serverTimestamp(),
       'isRead': isRead,
       'isDelivered': isDelivered,
       'deletedForEveryone': deletedForEveryone,
@@ -93,7 +71,7 @@ class ChatMessageModel {
       senderId: senderId,
       receiverId: receiverId,
       message: message,
-      sentAt: sentAt,
+      sentAt: sentAt ?? DateTime.now(), // fallback only for UI display
       isRead: isRead,
       isDelivered: isDelivered,
       edited: edited,
@@ -101,22 +79,4 @@ class ChatMessageModel {
       deletedFor: deletedFor,
     );
   }
-}
-
-DateTime _fixOldTimestamp(DateTime dt) {
-  // If timestamp is in the future → it was saved in UTC → convert manually
-  if (dt.isAfter(DateTime.now())) {
-    return dt.subtract(const Duration(hours: 5, minutes: 30)); // IST offset
-  }
-
-  // If timestamp is "today" but message is actually older → adjust
-  final now = DateTime.now();
-  if (dt.day == now.day && dt.month == now.month && dt.year == now.year) {
-    // If time difference is too small (< 1 minute), it's likely UTC
-    if (now.difference(dt).inMinutes < 1) {
-      return dt.subtract(const Duration(hours: 5, minutes: 30));
-    }
-  }
-
-  return dt;
 }

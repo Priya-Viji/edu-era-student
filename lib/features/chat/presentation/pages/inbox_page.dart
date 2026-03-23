@@ -155,7 +155,7 @@ class _InboxPageState extends State<InboxPage> {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(isDark ? 0.2 : 0.05),
+              color: Colors.black.withValues(alpha:isDark ? 0.2 : 0.05),
               blurRadius: 12,
               offset: const Offset(0, 4),
             ),

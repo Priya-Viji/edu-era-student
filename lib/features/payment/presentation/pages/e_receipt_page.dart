@@ -159,6 +159,8 @@ class EReceiptPage extends StatelessWidget {
       final file = File('${directory.path}/e_receipt_$transactionId.pdf');
       await file.writeAsBytes(bytes);
 
+      if (!context.mounted) return;
+
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('Saved to ${file.path}')));

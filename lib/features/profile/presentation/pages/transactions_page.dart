@@ -148,6 +148,9 @@ class _TransactionsPageState extends State<TransactionsPage> {
                   final barcodeNumber2 = paymentId.length > 6
                       ? paymentId.substring(6)
                       : '';
+
+                  if (!context.mounted) return;
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(

@@ -107,11 +107,11 @@ final currentUser = FirebaseAuth.instance.currentUser;
                         // Rating and duration
                         Row(
                           children: [
-                            const Icon(
-                              Icons.star,
-                              color: Color(0xFFFFC107),
-                              size: 14,
-                            ),
+                            // const Icon(
+                            //   Icons.star,
+                            //   color: Color(0xFFFFC107),
+                            //   size: 14,
+                            // ),
                             const SizedBox(width: 4),
                              Text(
                               course.rating == null

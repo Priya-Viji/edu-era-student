@@ -42,7 +42,7 @@ class CourseCard extends StatelessWidget {
     );
   }
 
-  /// 🔹 Vertical Layout
+  ///  Vertical Layout
   Widget _buildVertical(String userId, BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,12 +149,12 @@ class CourseCard extends StatelessWidget {
   }
 
 
-  /// 🔹 Horizontal Layout
+  ///  Horizontal Layout
  Widget _buildHorizontal(String userId, BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // 🔹 Top Image
+        //  Top Image
         ClipRRect(
           borderRadius: BorderRadius.circular(12),
           child: Image.network(

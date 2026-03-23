@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late Animation<Offset> _headerSlideAnimation;
   late Animation<double> _contentFadeAnimation;
 
-  @override
+ @override
   void initState() {
     super.initState();
 
@@ -44,7 +44,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       vsync: this,
       duration: const Duration(milliseconds: 800),
     );
-
     _contentController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1000),
@@ -53,7 +52,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     _headerFadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(parent: _headerController, curve: Curves.easeOut),
     );
-
     _headerSlideAnimation =
         Tween<Offset>(begin: const Offset(0, -0.5), end: Offset.zero).animate(
           CurvedAnimation(
@@ -61,26 +59,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             curve: Curves.easeOutCubic,
           ),
         );
-
     _contentFadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(parent: _contentController, curve: Curves.easeOut),
     );
 
     _headerController.forward();
-    Future.delayed(const Duration(milliseconds: 200), () {
-      _contentController.forward();
-    });
+    Future.delayed(
+      const Duration(milliseconds: 200),
+      () => _contentController.forward(),
+    );
 
     final userId = FirebaseAuth.instance.currentUser!.uid;
     context.read<BookmarkBloc>().add(LoadAllBookmarks(userId: userId));
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
     context.read<CourseBloc>().add(LoadCoursesEvent());
     context.read<MentorBloc>().add(LoadMentorsEvent());
   }
+
+  
 
   @override
   void dispose() {
