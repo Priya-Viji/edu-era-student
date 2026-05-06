@@ -1,16 +1,47 @@
-# eduera_student
+**EduEra - (E‑Learning App) using Flutter + Firebase**
 
-A new Flutter project.
+A modern e‑learning mobile application built using **Flutter** and **Firebase**, enabling students to discover courses, enroll, interact with mentors, and manage their learning journey.
 
-## Getting Started
+## **Features**
+- **Course Search** — Users can search courses based on their interests.  
+- **Course Enrollment** — Students can enroll in any course they like.  
+- **Mentor Interaction** — After enrollment, students can view mentor details and ask doubts directly.  
+- **User Profile** — Each user has a personalized profile section.  
+- **Favorite Courses** — Users can add courses to their favorites list.  
 
-This project is a starting point for a Flutter application.
+## **Tech Stack**
+- **Flutter** (Dart)  
+- **Firebase Authentication**  
+- **Cloud Firestore**  
+- **Firebase Storage**  
+- **State Management:** BLoC 
+- **Clean Architecture**
 
-A few resources to get you started if this is your first Flutter project:
+## 📱 **Core Screens**
+- Home Screen (Course list + search)  
+- Course Details  
+- Enrollment Flow  
+- Mentor Details  
+- Chat / Doubt Section  
+- User Profile  
+- Favorites  
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## **Project Structure**
+```
+lib/
+ ├── data/
+ ├── domain/
+ ├── presentation/
+    |-- widgets/
+ └── core/
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## **How to Run**
+1. Clone the repository  
+2. Run `flutter pub get`  
+3. Add your Firebase configuration files  
+4. Run the app
+-------------
+flutter run
+-------------
+
